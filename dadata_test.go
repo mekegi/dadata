@@ -40,6 +40,14 @@ func newAddressByIDDetector() ByIDFinder {
 	return instance()
 }
 
+func newStater() Stater {
+	return instance()
+}
+
+func newBalance() Balancer {
+	return instance()
+}
+
 func TestNewDaData(t *testing.T) {
 	apiKey := "apiKey"
 	secretKey := "secretKey"

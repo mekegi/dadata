@@ -277,3 +277,18 @@ type ResponseParty struct {
 	UnrestrictedValue string `json:"unrestricted_value"`
 	Data              Party  `json:"data"`
 }
+
+// StatResponse usage statitics
+//see docs https://dadata.ru/api/stat/
+type StatResponse struct {
+	Date     string `json:"date"`
+	Services struct {
+		Merging     int `json:"merging"`
+		Suggestions int `json:"suggestions"`
+		Clean       int `json:"clean"`
+	} `json:"services"`
+}
+
+type BalanceResponse struct {
+	Balance float64 `json:"balance"`
+}
