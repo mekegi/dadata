@@ -38,6 +38,7 @@ type SuggestRequestParams struct {
 	Query         string                         `json:"query"` // user input for suggestion
 	Count         int                            `json:"count"` // ligmit for results
 	Locations     []SuggestRequestParamsLocation `json:"locations"`
+	LocationBoost []Address                      `json:"locations_boost"`
 	RestrictValue bool                           `json:"restrict_value"` // don't show restricts (region) on results
 
 	FromBound SuggestBound `json:"from_bound"`

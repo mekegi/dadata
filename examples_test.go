@@ -88,17 +88,17 @@ func ExampleDaData_SuggestBanks() {
 	}
 
 	for _, bank := range banks {
-		fmt.Println(bank.Data.Name.Full)
+		fmt.Println(bank.Data.Name.Payment)
 		fmt.Println(bank.Data.Bic)
 	}
 
 	// Output:
-	// "МОСКОВСКИЙ КРЕДИТНЫЙ БАНК" (ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО)
+	// ПАО "МОСКОВСКИЙ КРЕДИТНЫЙ БАНК"
 	// 044525659
-	// КОММЕРЧЕСКИЙ БАНК "РЕСПУБЛИКАНСКИЙ КРЕДИТНЫЙ АЛЬЯНС" (ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ)
+	// "РЕСПУБЛИКАНСКИЙ КРЕДИТНЫЙ АЛЬЯНС" ООО
 	// 044525860
-	// ЖИЛИЩНО-КРЕДИТНЫЙ КОММЕРЧЕСКИЙ БАНК "ЖИЛКРЕДИТ" ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ
-	// 044525325
+	// НКО "МКС" (ООО)
+	// 044525696
 }
 
 func ExampleDaData_SuggestParties() {
@@ -117,10 +117,10 @@ func ExampleDaData_SuggestParties() {
 	// Output:
 	// АГРОХОЛДИНГ
 	// 1057746753327
-	// АГРОХОЛДИНГ НОВОТЕХ
-	// 5087746090042
 	// МАГНУС АГРОХОЛДИНГ
 	// 1133123023186
+	// АГРОХОЛДИНГ ИСТРА
+	// 1147746679376
 }
 
 func ExampleDaData_AddressByID() {
@@ -257,4 +257,27 @@ func ExampleDaData_WithCustomBaseURL() {
 	// Алексей
 	// Алексеев
 	// Иван
+}
+
+func ExampleDaData_SuggestAddresses_withBoost() {
+	daData := NewDaData(os.Getenv("API_KEY"), os.Getenv("SECRET_KEY"))
+	addresses, err := daData.SuggestAddresses(SuggestRequestParams{
+		Query: "прес",
+		Count: 3,
+		LocationBoost: []Address{
+			{KladrId: "6302200000000"},
+		},
+	})
+	if nil != err {
+		fmt.Println(err)
+	}
+
+	for _, address := range addresses {
+		fmt.Println(address.UnrestrictedValue)
+	}
+
+	// Output:
+	// Самарская обл, Ставропольский р-н, тер. снт Прессовщик
+	// г Москва, Пресненская наб
+	// г Москва, ул Красная Пресня
 }

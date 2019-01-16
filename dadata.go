@@ -78,7 +78,7 @@ func (daData *DaData) sendRequestToURL(ctx context.Context, method, url string, 
 	if err := json.NewEncoder(buffer).Encode(source); err != nil {
 		return fmt.Errorf("sendRequestToURL: json.Encode return err = %v", err)
 	}
-
+	//fmt.Println(string(buffer.String()))
 	request, err := http.NewRequest(method, url, buffer)
 
 	if err != nil {
